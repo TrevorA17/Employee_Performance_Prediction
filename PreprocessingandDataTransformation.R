@@ -37,3 +37,19 @@ head(employee_data)
 
 # View the dataset
 View(employee_data)
+
+# Check for missing values
+missing_values <- colSums(is.na(employee_data))
+
+# Print the number of missing values for each variable
+print("Missing values in the dataset:")
+print(missing_values)
+
+employee_data$wip[is.na(employee_data$wip)] <- mean(employee_data$wip, na.rm = TRUE)
+
+# Check if there are still missing values
+missing_values <- colSums(is.na(employee_data))
+
+# Print the number of missing values for each variable after imputation
+print("Missing values in the dataset after imputation:")
+print(missing_values)
