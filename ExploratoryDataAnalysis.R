@@ -17,7 +17,7 @@ employee_data <- read.csv("data/employee_performance.csv",
                             quarter_Quarter3 = "factor",
                             quarter_Quarter4 = "factor",
                             quarter_Quarter5 = "factor",
-                            department_finishing = "factor",
+                            day_Friday = "factor",
                             department_finishing  = "factor", 
                             department_sewing = "factor",  
                             day_Monday = "factor",
@@ -210,3 +210,12 @@ correlation_matrix <- cor(employee_data[, c(
 # Print correlation matrix
 print("Correlation Matrix:")
 print(correlation_matrix)
+
+# Here, we'll test whether the mean targeted_productivity differs between different days of the week
+
+# Fit ANOVA model
+anova_result <- aov(targeted_productivity ~ day_Monday + day_Tuesday + day_Wednesday + 
+                      day_Thursday + day_Friday + day_Saturday + day_Sunday, data = employee_data)
+
+# Summary of ANOVA
+summary(anova_result)
