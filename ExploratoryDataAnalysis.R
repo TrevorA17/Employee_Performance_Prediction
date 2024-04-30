@@ -200,3 +200,13 @@ cat("Variance no_of_workers:", variance_no_of_workers, "\n")
 cat("Standard Deviation no_of_workers:", sd_no_of_workers, "\n")
 cat("Skewness no_of_workers:", skewness_no_of_workers, "\n")
 
+# Calculate correlation matrix for numerical variables
+correlation_matrix <- cor(employee_data[, c(
+  "targeted_productivity", "smv", "wip", "over_time",
+  "incentive", "idle_time", "idle_men", "no_of_style_change",
+  "no_of_workers"
+)])
+
+# Print correlation matrix
+print("Correlation Matrix:")
+print(correlation_matrix)
