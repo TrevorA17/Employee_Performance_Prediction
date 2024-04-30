@@ -115,3 +115,10 @@ print(model_rf)
 # Summarize the results
 print(model_rf$finalModel)
 
+# Define the model using multilayer perceptron
+model_mlp <- train(targeted_productivity ~ ., data = employee_data, method = "mlp")
+
+# Print the model
+print(model_mlp)
+
+
