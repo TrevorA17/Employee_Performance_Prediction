@@ -121,4 +121,19 @@ model_mlp <- train(targeted_productivity ~ ., data = employee_data, method = "ml
 # Print the model
 print(model_mlp)
 
+# Define models
+models <- list(
+  lm = train(targeted_productivity ~ ., data = employee_data, method = "lm"),
+  rf = train(targeted_productivity ~ ., data = employee_data, method = "rf"),
+  mlp = train(targeted_productivity ~ ., data = employee_data, method = "mlp")
+)
+
+# Compare model performance using 10-fold cross-validation
+comparison <- resamples(models)
+
+# Summarize the comparison results
+summary(comparison)
+
+# Plot the comparison results
+bwplot(comparison)
 
