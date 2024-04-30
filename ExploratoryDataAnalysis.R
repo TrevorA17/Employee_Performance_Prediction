@@ -236,7 +236,7 @@ boxplot_smv <- ggplot(employee_data, aes(y = smv)) +
   labs(title = "Boxplot of SMV",
        y = "SMV")
 
-# Density plot for wip
+# Density plot for wipss
 density_wip <- ggplot(employee_data, aes(x = wip)) +
   geom_density(fill = "pink", color = "black") +
   labs(title = "Density Plot of WIP",
@@ -247,4 +247,31 @@ density_wip <- ggplot(employee_data, aes(x = wip)) +
 print(histogram_targeted_productivity)
 print(boxplot_smv)
 print(density_wip)
-ss
+
+# Multivariate plots
+
+# Scatter plot between targeted_productivity and smv
+scatter_targeted_smv <- ggplot(employee_data, aes(x = targeted_productivity, y = smv)) +
+  geom_point() +
+  labs(title = "Scatter Plot: Targeted Productivity vs. SMV",
+       x = "Targeted Productivity",
+       y = "SMV")
+
+# Scatter plot between wip and over_time colored by department_finishing
+scatter_wip_over_time <- ggplot(employee_data, aes(x = wip, y = over_time, color = department_finishing)) +
+  geom_point() +
+  labs(title = "Scatter Plot: WIP vs. Overtime",
+       x = "WIP",
+       y = "Overtime")
+
+# Boxplot of targeted_productivity by day_Monday
+boxplot_targeted_day <- ggplot(employee_data, aes(x = day_Monday, y = targeted_productivity)) +
+  geom_boxplot() +
+  labs(title = "Boxplot: Targeted Productivity by Day (Monday)",
+       x = "Day of Week",
+       y = "Targeted Productivity")
+
+# Output each plot
+print(scatter_targeted_smv)
+print(scatter_wip_over_time)
+print(boxplot_targeted_day)
