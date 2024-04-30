@@ -37,3 +37,20 @@ head(employee_data)
 
 # View the dataset
 View(employee_data)
+
+# Load necessary packages
+library(caTools)  # For data splitting
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Split the data into training and testing sets (70% training, 30% testing)
+split <- sample.split(employee_data$targeted_productivity, SplitRatio = 0.7)
+
+# Create training and testing datasets
+training_data <- subset(employee_data, split == TRUE)
+testing_data <- subset(employee_data, split == FALSE)
+
+# Check the dimensions of the training and testing datasets
+cat("Training data dimensions:", dim(training_data), "\n")
+cat("Testing data dimensions:", dim(testing_data), "\n")
