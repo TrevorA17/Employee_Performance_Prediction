@@ -93,3 +93,17 @@ print(model)
 
 # Summarize the results
 summary(model)
+
+# Load necessary packages
+library(caret)
+
+# Define the model using linear regression
+model_lm <- train(targeted_productivity ~ ., data = employee_data, method = "lm")
+
+# Print the model
+print(model_lm)
+
+# Summarize the results
+summary(model_lm)
+
+
