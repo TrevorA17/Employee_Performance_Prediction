@@ -106,4 +106,12 @@ print(model_lm)
 # Summarize the results
 summary(model_lm)
 
+# Define the model using random forest
+model_rf <- train(targeted_productivity ~ ., data = employee_data, method = "rf")
+
+# Print the model
+print(model_rf)
+
+# Summarize the results
+print(model_rf$finalModel)
 
