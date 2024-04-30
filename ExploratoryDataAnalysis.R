@@ -219,3 +219,32 @@ anova_result <- aov(targeted_productivity ~ day_Monday + day_Tuesday + day_Wedne
 
 # Summary of ANOVA
 summary(anova_result)
+
+# Load necessary packages for plotting
+library(ggplot2)
+
+# Histogram for targeted_productivity
+histogram_targeted_productivity <- ggplot(employee_data, aes(x = targeted_productivity)) +
+  geom_histogram(fill = "skyblue", color = "black", bins = 20) +
+  labs(title = "Histogram of Targeted Productivity",
+       x = "Targeted Productivity",
+       y = "Frequency")
+
+# Boxplot for smv
+boxplot_smv <- ggplot(employee_data, aes(y = smv)) +
+  geom_boxplot(fill = "lightgreen", color = "black") +
+  labs(title = "Boxplot of SMV",
+       y = "SMV")
+
+# Density plot for wip
+density_wip <- ggplot(employee_data, aes(x = wip)) +
+  geom_density(fill = "pink", color = "black") +
+  labs(title = "Density Plot of WIP",
+       x = "WIP",
+       y = "Density")
+
+# Output each plot
+print(histogram_targeted_productivity)
+print(boxplot_smv)
+print(density_wip)
+ss
