@@ -125,3 +125,78 @@ cat("Mean no_of_workers:", mean_no_of_workers, "\n")
 cat("Median no_of_workers:", median_no_of_workers, "\n")
 cat("Mode no_of_workers:", mode_no_of_workers, "\n")
 
+# Load the psych package
+library(psych)
+
+# Calculate measures of distribution for numerical variables
+
+# Variance
+variance_targeted_productivity <- var(employee_data$targeted_productivity)
+variance_smv <- var(employee_data$smv)
+variance_wip <- var(employee_data$wip)
+variance_over_time <- var(employee_data$over_time)
+variance_incentive <- var(employee_data$incentive)
+variance_idle_time <- var(employee_data$idle_time)
+variance_idle_men <- var(employee_data$idle_men)
+variance_no_of_style_change <- var(employee_data$no_of_style_change)
+variance_no_of_workers <- var(employee_data$no_of_workers)
+
+# Standard Deviation
+sd_targeted_productivity <- sd(employee_data$targeted_productivity)
+sd_smv <- sd(employee_data$smv)
+sd_wip <- sd(employee_data$wip)
+sd_over_time <- sd(employee_data$over_time)
+sd_incentive <- sd(employee_data$incentive)
+sd_idle_time <- sd(employee_data$idle_time)
+sd_idle_men <- sd(employee_data$idle_men)
+sd_no_of_style_change <- sd(employee_data$no_of_style_change)
+sd_no_of_workers <- sd(employee_data$no_of_workers)
+
+# Skewness
+skewness_targeted_productivity <- skew(employee_data$targeted_productivity)
+skewness_smv <- skew(employee_data$smv)
+skewness_wip <- skew(employee_data$wip)
+skewness_over_time <- skew(employee_data$over_time)
+skewness_incentive <- skew(employee_data$incentive)
+skewness_idle_time <- skew(employee_data$idle_time)
+skewness_idle_men <- skew(employee_data$idle_men)
+skewness_no_of_style_change <- skew(employee_data$no_of_style_change)
+skewness_no_of_workers <- skew(employee_data$no_of_workers)
+
+# Print the results
+cat("Variance targeted_productivity:", variance_targeted_productivity, "\n")
+cat("Standard Deviation targeted_productivity:", sd_targeted_productivity, "\n")
+cat("Skewness targeted_productivity:", skewness_targeted_productivity, "\n")
+
+cat("Variance smv:", variance_smv, "\n")
+cat("Standard Deviation smv:", sd_smv, "\n")
+cat("Skewness smv:", skewness_smv, "\n")
+
+cat("Variance wip:", variance_wip, "\n")
+cat("Standard Deviation wip:", sd_wip, "\n")
+cat("Skewness wip:", skewness_wip, "\n")
+
+cat("Variance over_time:", variance_over_time, "\n")
+cat("Standard Deviation over_time:", sd_over_time, "\n")
+cat("Skewness over_time:", skewness_over_time, "\n")
+
+cat("Variance incentive:", variance_incentive, "\n")
+cat("Standard Deviation incentive:", sd_incentive, "\n")
+cat("Skewness incentive:", skewness_incentive, "\n")
+
+cat("Variance idle_time:", variance_idle_time, "\n")
+cat("Standard Deviation idle_time:", sd_idle_time, "\n")
+cat("Skewness idle_time:", skewness_idle_time, "\n")
+
+cat("Variance idle_men:", variance_idle_men, "\n")
+cat("Standard Deviation idle_men:", sd_idle_men, "\n")
+cat("Skewness idle_men:", skewness_idle_men, "\n")
+
+cat("Variance no_of_style_change:", variance_no_of_style_change, "\n")
+cat("Standard Deviation no_of_style_change:", sd_no_of_style_change, "\n")
+cat("Skewness no_of_style_change:", skewness_no_of_style_change, "\n")
+
+cat("Variance no_of_workers:", variance_no_of_workers, "\n")
+cat("Standard Deviation no_of_workers:", sd_no_of_workers, "\n")
+cat("Skewness no_of_workers:", skewness_no_of_workers, "\n")
+
