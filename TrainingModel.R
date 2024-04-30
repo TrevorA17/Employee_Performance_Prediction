@@ -72,3 +72,24 @@ print(boot_results)
 
 # Plot the bootstrap distribution
 plot(boot_results)
+
+# Load necessary packages
+library(caret)
+
+# Set the seed for reproducibility
+set.seed(123)
+
+# Define the number of folds
+k <- 10  # You can choose any value depending on your preference and dataset size
+
+# Define the training control
+train_control <- trainControl(method = "cv", number = k)
+
+# Define the model (example: linear regression)
+model <- train(targeted_productivity ~ ., data = employee_data, method = "lm", trControl = train_control)
+
+# Print the model
+print(model)
+
+# Summarize the results
+summary(model)
