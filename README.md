@@ -1,2 +1,2 @@
-# Employee Performance Prediction
-Predict employee performance using techniques like regression analysis, decision trees, or neural networks.
+# Employee Performance Prediction API
+This project provides an API for predicting employee performance based on various factors such as team, productivity metrics, working conditions, and more. The API utilizes a machine learning model trained on historical employee performance data to make predictions. Users can send a HTTP GET request with employee data as parameters, and the API will return the predicted performance level. This API can be integrated into HR management systems, employee scheduling tools, or any other application where predicting employee performance is beneficial. To get started, follow the instructions below for setting up and running the API.
