@@ -54,3 +54,21 @@ testing_data <- subset(employee_data, split == FALSE)
 # Check the dimensions of the training and testing datasets
 cat("Training data dimensions:", dim(training_data), "\n")
 cat("Testing data dimensions:", dim(testing_data), "\n")
+
+# Load necessary packages
+library(boot)
+
+# For example, let's calculate the mean of 'targeted_productivity'
+statistic <- function(data, i) {
+  mean(data$targeted_productivity[i])
+}
+
+# Perform bootstrapping with 1000 bootstrap samples
+boot_results <- boot(employee_data, statistic, R = 1000)
+
+# Summarize bootstrapping results
+print("Bootstrapping results:")
+print(boot_results)
+
+# Plot the bootstrap distribution
+plot(boot_results)
