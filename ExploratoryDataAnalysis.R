@@ -275,3 +275,4 @@ boxplot_targeted_day <- ggplot(employee_data, aes(x = day_Monday, y = targeted_p
 print(scatter_targeted_smv)
 print(scatter_wip_over_time)
 print(boxplot_targeted_day)
+
