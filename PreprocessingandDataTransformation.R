@@ -38,6 +38,12 @@ head(employee_data)
 # View the dataset
 View(employee_data)
 
+
+
+# Ensure 'team' and 'month' are removed from both training and prediction data
+employee_data <- employee_data[, !colnames(employee_data) %in% c("team", "month")]
+
+
 # Check for missing values
 missing_values <- colSums(is.na(employee_data))
 
@@ -53,3 +59,5 @@ missing_values <- colSums(is.na(employee_data))
 # Print the number of missing values for each variable after imputation
 print("Missing values in the dataset after imputation:")
 print(missing_values)
+
+
