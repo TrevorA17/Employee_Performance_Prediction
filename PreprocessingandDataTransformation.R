@@ -38,8 +38,6 @@ head(employee_data)
 # View the dataset
 View(employee_data)
 
-
-
 # Ensure 'team' and 'month' are removed from both training and prediction data
 employee_data <- employee_data[, !colnames(employee_data) %in% c("team", "month")]
 

@@ -10,7 +10,7 @@ model_rf <- train(
 )
 
 # Save the best Random Forest model
-saveRDS(model_rf, "./models/random_forest_model.rds")
+saveRDS(model_rf$finalModel, "./models/random_forest_model.rds")
 
 # Load the saved model
 loaded_rf_model <- readRDS("./models/random_forest_model.rds")

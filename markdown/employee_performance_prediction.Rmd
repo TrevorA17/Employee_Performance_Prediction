@@ -1,0 +1,492 @@
+---
+title: "Employee Performance Prediction"
+author: "Trevor Okinda"
+date: "2024"
+output:
+  github_document: 
+    toc: yes
+    toc_depth: 4
+    fig_width: 6
+    fig_height: 4
+    df_print: default
+editor_options:
+  chunk_output_type: console
+---
+
+# Student Details
+
+|                                              |     |
+|----------------------------------------------|-----|
+| **Student ID Number**                        | 134780 |
+| **Student Name**                             | Trevor Okinda |
+| **BBIT 4.2 Group**                           | C |
+| **Project Name**                             | Employee Performance Prediction |
+
+# Setup Chunk
+
+**Note:** the following KnitR options have been set as the global defaults: <BR> `knitr::opts_chunk$set(echo = TRUE, warning = FALSE, eval = TRUE, collapse = FALSE, tidy = TRUE)`.
+
+More KnitR options are documented here <https://bookdown.org/yihui/rmarkdown-cookbook/chunk-options.html> and here <https://yihui.org/knitr/options/>.
+
+```{r setup, include=FALSE}
+library(formatR)
+knitr::opts_chunk$set(
+  warning = FALSE,
+  collapse = FALSE
+)
+```
+
+# Understanding the Dataset (Exploratory Data Analysis (EDA))
+
+## Loading the Dataset
+
+### Source: 
+
+The dataset that was used can be downloaded here: *\<https://www.kaggle.com/datasets/gauravduttakiit/employee-performance-prediction\>*
+
+### Reference:
+
+*\<Avagyan, Z. (2017). Weather CSV [Data set]. Kaggle. https://www.kaggle.com/datasets/zaraavagyan/weathercsv\>\
+Refer to the APA 7th edition manual for rules on how to cite datasets: <https://apastyle.apa.org/style-grammar-guidelines/references/examples/data-set-references>*
+
+# Exploratory Data Analysis
+## Load dataset
+```{r load dataset}
+# Load the employee dataset
+employee_data <- read.csv("employee_performance.csv", 
+                          colClasses = c(
+                            team = "factor",
+                            targeted_productivity = "numeric",
+                            smv = "numeric",
+                            wip = "numeric",
+                            over_time = "numeric",
+                            incentive = "numeric",
+                            idle_time = "numeric",
+                            idle_men = "numeric",
+                            no_of_style_change = "numeric",
+                            no_of_workers = "numeric",
+                            month = "factor",
+                            quarter_Quarter1 = "factor",
+                            quarter_Quarter2 = "factor",
+                            quarter_Quarter3 = "factor",
+                            quarter_Quarter4 = "factor",
+                            quarter_Quarter5 = "factor",
+                            day_Friday = "factor",
+                            department_finishing  = "factor", 
+                            department_sewing = "factor",  
+                            day_Monday = "factor",
+                            day_Saturday = "factor",
+                            day_Sunday = "factor",
+                            day_Thursday = "factor",
+                            day_Tuesday = "factor",
+                            day_Wednesday = "factor"
+                          ), 
+                          header = TRUE)
+
+# Display the structure of the dataset
+str(employee_data)
+
+# View the first few rows of the dataset
+head(employee_data)
+
+# View the dataset
+View(employee_data)
+```
+
+## Measures of frequency
+```{r Measures of frequency}
+# Frequency table for the 'team' variable
+team_freq <- table(employee_data$team)
+print("Frequency table for 'team' variable:")
+print(team_freq)
+
+# Frequency table for the 'department_finishing' variable
+dept_finishing_freq <- table(employee_data$department_finishing)
+print("Frequency table for 'department_finishing' variable:")
+print(dept_finishing_freq)
+
+# Frequency table for the 'day_Monday' variable
+day_Monday_freq <- table(employee_data$day_Monday)
+print("Frequency table for 'day_Monday' variable:")
+print(day_Monday_freq)
+```
+
+## Measures of Central Tendency
+```{r Measures of Central Tendency}
+# Calculate measures of central tendency for numerical variables
+
+# Mean
+mean_targeted_productivity <- mean(employee_data$targeted_productivity)
+mean_smv <- mean(employee_data$smv)
+mean_wip <- mean(employee_data$wip)
+mean_over_time <- mean(employee_data$over_time)
+mean_incentive <- mean(employee_data$incentive)
+mean_idle_time <- mean(employee_data$idle_time)
+mean_idle_men <- mean(employee_data$idle_men)
+mean_no_of_style_change <- mean(employee_data$no_of_style_change)
+mean_no_of_workers <- mean(employee_data$no_of_workers)
+
+# Median
+median_targeted_productivity <- median(employee_data$targeted_productivity)
+median_smv <- median(employee_data$smv)
+median_wip <- median(employee_data$wip)
+median_over_time <- median(employee_data$over_time)
+median_incentive <- median(employee_data$incentive)
+median_idle_time <- median(employee_data$idle_time)
+median_idle_men <- median(employee_data$idle_men)
+median_no_of_style_change <- median(employee_data$no_of_style_change)
+median_no_of_workers <- median(employee_data$no_of_workers)
+
+# Mode (assuming there's only one mode)
+mode_targeted_productivity <- names(sort(table(employee_data$targeted_productivity), decreasing = TRUE)[1])
+mode_smv <- names(sort(table(employee_data$smv), decreasing = TRUE)[1])
+mode_wip <- names(sort(table(employee_data$wip), decreasing = TRUE)[1])
+mode_over_time <- names(sort(table(employee_data$over_time), decreasing = TRUE)[1])
+mode_incentive <- names(sort(table(employee_data$incentive), decreasing = TRUE)[1])
+mode_idle_time <- names(sort(table(employee_data$idle_time), decreasing = TRUE)[1])
+mode_idle_men <- names(sort(table(employee_data$idle_men), decreasing = TRUE)[1])
+mode_no_of_style_change <- names(sort(table(employee_data$no_of_style_change), decreasing = TRUE)[1])
+mode_no_of_workers <- names(sort(table(employee_data$no_of_workers), decreasing = TRUE)[1])
+
+# Print the results
+cat("Mean targeted_productivity:", mean_targeted_productivity, "\n")
+cat("Median targeted_productivity:", median_targeted_productivity, "\n")
+cat("Mode targeted_productivity:", mode_targeted_productivity, "\n")
+
+cat("Mean smv:", mean_smv, "\n")
+cat("Median smv:", median_smv, "\n")
+cat("Mode smv:", mode_smv, "\n")
+
+cat("Mean wip:", mean_wip, "\n")
+cat("Median wip:", median_wip, "\n")
+cat("Mode wip:", mode_wip, "\n")
+
+cat("Mean over_time:", mean_over_time, "\n")
+cat("Median over_time:", median_over_time, "\n")
+cat("Mode over_time:", mode_over_time, "\n")
+
+cat("Mean incentive:", mean_incentive, "\n")
+cat("Median incentive:", median_incentive, "\n")
+cat("Mode incentive:", mode_incentive, "\n")
+
+cat("Mean idle_time:", mean_idle_time, "\n")
+cat("Median idle_time:", median_idle_time, "\n")
+cat("Mode idle_time:", mode_idle_time, "\n")
+
+cat("Mean idle_men:", mean_idle_men, "\n")
+cat("Median idle_men:", median_idle_men, "\n")
+cat("Mode idle_men:", mode_idle_men, "\n")
+
+cat("Mean no_of_style_change:", mean_no_of_style_change, "\n")
+cat("Median no_of_style_change:", median_no_of_style_change, "\n")
+cat("Mode no_of_style_change:", mode_no_of_style_change, "\n")
+
+cat("Mean no_of_workers:", mean_no_of_workers, "\n")
+cat("Median no_of_workers:", median_no_of_workers, "\n")
+cat("Mode no_of_workers:", mode_no_of_workers, "\n")
+```
+
+## Measures of Distribution
+```{r Measures of Distribution}
+# Load the psych package
+library(psych)
+
+# Calculate measures of distribution for numerical variables
+
+# Variance
+variance_targeted_productivity <- var(employee_data$targeted_productivity)
+variance_smv <- var(employee_data$smv)
+variance_wip <- var(employee_data$wip)
+variance_over_time <- var(employee_data$over_time)
+variance_incentive <- var(employee_data$incentive)
+variance_idle_time <- var(employee_data$idle_time)
+variance_idle_men <- var(employee_data$idle_men)
+variance_no_of_style_change <- var(employee_data$no_of_style_change)
+variance_no_of_workers <- var(employee_data$no_of_workers)
+
+# Standard Deviation
+sd_targeted_productivity <- sd(employee_data$targeted_productivity)
+sd_smv <- sd(employee_data$smv)
+sd_wip <- sd(employee_data$wip)
+sd_over_time <- sd(employee_data$over_time)
+sd_incentive <- sd(employee_data$incentive)
+sd_idle_time <- sd(employee_data$idle_time)
+sd_idle_men <- sd(employee_data$idle_men)
+sd_no_of_style_change <- sd(employee_data$no_of_style_change)
+sd_no_of_workers <- sd(employee_data$no_of_workers)
+
+# Skewness
+skewness_targeted_productivity <- skew(employee_data$targeted_productivity)
+skewness_smv <- skew(employee_data$smv)
+skewness_wip <- skew(employee_data$wip)
+skewness_over_time <- skew(employee_data$over_time)
+skewness_incentive <- skew(employee_data$incentive)
+skewness_idle_time <- skew(employee_data$idle_time)
+skewness_idle_men <- skew(employee_data$idle_men)
+skewness_no_of_style_change <- skew(employee_data$no_of_style_change)
+skewness_no_of_workers <- skew(employee_data$no_of_workers)
+
+# Print the results
+cat("Variance targeted_productivity:", variance_targeted_productivity, "\n")
+cat("Standard Deviation targeted_productivity:", sd_targeted_productivity, "\n")
+cat("Skewness targeted_productivity:", skewness_targeted_productivity, "\n")
+
+cat("Variance smv:", variance_smv, "\n")
+cat("Standard Deviation smv:", sd_smv, "\n")
+cat("Skewness smv:", skewness_smv, "\n")
+
+cat("Variance wip:", variance_wip, "\n")
+cat("Standard Deviation wip:", sd_wip, "\n")
+cat("Skewness wip:", skewness_wip, "\n")
+
+cat("Variance over_time:", variance_over_time, "\n")
+cat("Standard Deviation over_time:", sd_over_time, "\n")
+cat("Skewness over_time:", skewness_over_time, "\n")
+
+cat("Variance incentive:", variance_incentive, "\n")
+cat("Standard Deviation incentive:", sd_incentive, "\n")
+cat("Skewness incentive:", skewness_incentive, "\n")
+
+cat("Variance idle_time:", variance_idle_time, "\n")
+cat("Standard Deviation idle_time:", sd_idle_time, "\n")
+cat("Skewness idle_time:", skewness_idle_time, "\n")
+
+cat("Variance idle_men:", variance_idle_men, "\n")
+cat("Standard Deviation idle_men:", sd_idle_men, "\n")
+cat("Skewness idle_men:", skewness_idle_men, "\n")
+
+cat("Variance no_of_style_change:", variance_no_of_style_change, "\n")
+cat("Standard Deviation no_of_style_change:", sd_no_of_style_change, "\n")
+cat("Skewness no_of_style_change:", skewness_no_of_style_change, "\n")
+
+cat("Variance no_of_workers:", variance_no_of_workers, "\n")
+cat("Standard Deviation no_of_workers:", sd_no_of_workers, "\n")
+cat("Skewness no_of_workers:", skewness_no_of_workers, "\n")
+```
+
+## Measures of Relationship
+```{r Measures of relationship}
+# Calculate correlation matrix for numerical variables
+correlation_matrix <- cor(employee_data[, c(
+  "targeted_productivity", "smv", "wip", "over_time",
+  "incentive", "idle_time", "idle_men", "no_of_style_change",
+  "no_of_workers"
+)])
+
+# Print correlation matrix
+print("Correlation Matrix:")
+print(correlation_matrix)
+```
+
+## ANOVA
+```{r ANOVA}
+# Fit ANOVA model
+anova_result <- aov(targeted_productivity ~ day_Monday + day_Tuesday + day_Wednesday + 
+                      day_Thursday + day_Friday + day_Saturday + day_Sunday, data = employee_data)
+
+# Summary of ANOVA
+summary(anova_result)
+```
+
+## Plots
+```{r plots}
+# Load necessary packages for plotting
+library(ggplot2)
+
+# Histogram for targeted_productivity
+histogram_targeted_productivity <- ggplot(employee_data, aes(x = targeted_productivity)) +
+  geom_histogram(fill = "skyblue", color = "black", bins = 20) +
+  labs(title = "Histogram of Targeted Productivity",
+       x = "Targeted Productivity",
+       y = "Frequency")
+
+# Boxplot for smv
+boxplot_smv <- ggplot(employee_data, aes(y = smv)) +
+  geom_boxplot(fill = "lightgreen", color = "black") +
+  labs(title = "Boxplot of SMV",
+       y = "SMV")
+
+# Density plot for wipss
+density_wip <- ggplot(employee_data, aes(x = wip)) +
+  geom_density(fill = "pink", color = "black") +
+  labs(title = "Density Plot of WIP",
+       x = "WIP",
+       y = "Density")
+
+# Output each plot
+print(histogram_targeted_productivity)
+print(boxplot_smv)
+print(density_wip)
+
+# Multivariate plots
+
+# Scatter plot between targeted_productivity and smv
+scatter_targeted_smv <- ggplot(employee_data, aes(x = targeted_productivity, y = smv)) +
+  geom_point() +
+  labs(title = "Scatter Plot: Targeted Productivity vs. SMV",
+       x = "Targeted Productivity",
+       y = "SMV")
+
+# Scatter plot between wip and over_time colored by department_finishing
+scatter_wip_over_time <- ggplot(employee_data, aes(x = wip, y = over_time, color = department_finishing)) +
+  geom_point() +
+  labs(title = "Scatter Plot: WIP vs. Overtime",
+       x = "WIP",
+       y = "Overtime")
+
+# Boxplot of targeted_productivity by day_Monday
+boxplot_targeted_day <- ggplot(employee_data, aes(x = day_Monday, y = targeted_productivity)) +
+  geom_boxplot() +
+  labs(title = "Boxplot: Targeted Productivity by Day (Monday)",
+       x = "Day of Week",
+       y = "Targeted Productivity")
+
+# Output each plot
+print(scatter_targeted_smv)
+print(scatter_wip_over_time)
+print(boxplot_targeted_day)
+```
+
+# Preprocessing and Data Transformation
+## Missing values
+```{r missing values}
+# Ensure 'team' and 'month' are removed from both training and prediction data
+employee_data <- employee_data[, !colnames(employee_data) %in% c("team", "month")]
+
+
+# Check for missing values
+missing_values <- colSums(is.na(employee_data))
+
+# Print the number of missing values for each variable
+print("Missing values in the dataset:")
+print(missing_values)
+```
+
+## Imputation
+```{r Imputation}
+employee_data$wip[is.na(employee_data$wip)] <- mean(employee_data$wip, na.rm = TRUE)
+
+# Check if there are still missing values
+missing_values <- colSums(is.na(employee_data))
+
+# Print the number of missing values for each variable after imputation
+print("Missing values in the dataset after imputation:")
+print(missing_values)
+
+```
+
+# Training Model
+## Data Splitting
+```{r Data Splitting}
+# Load necessary packages
+library(caTools)  # For data splitting
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Split the data into training and testing sets (70% training, 30% testing)
+split <- sample.split(employee_data$targeted_productivity, SplitRatio = 0.7)
+
+# Create training and testing datasets
+training_data <- subset(employee_data, split == TRUE)
+testing_data <- subset(employee_data, split == FALSE)
+
+# Check the dimensions of the training and testing datasets
+cat("Training data dimensions:", dim(training_data), "\n")
+cat("Testing data dimensions:", dim(testing_data), "\n")
+```
+
+## Bootstrapping
+```{r Bootstrapping}
+# Load necessary packages
+library(boot)
+
+# For example, let's calculate the mean of 'targeted_productivity'
+statistic <- function(data, i) {
+  mean(data$targeted_productivity[i])
+}
+
+# Perform bootstrapping with 1000 bootstrap samples
+boot_results <- boot(employee_data, statistic, R = 1000)
+
+# Summarize bootstrapping results
+print("Bootstrapping results:")
+print(boot_results)
+
+# Plot the bootstrap distribution
+plot(boot_results)
+```
+
+## Cross-validation
+```{r cross-validation}
+# Load necessary packages
+library(caret)
+
+# Set the seed for reproducibility
+set.seed(123)
+
+# Define the number of folds
+k <- 10  # You can choose any value depending on your preference and dataset size
+
+# Define the training control
+train_control <- trainControl(method = "cv", number = k)
+
+# Define the model (example: linear regression)
+model <- train(targeted_productivity ~ ., data = employee_data, method = "lm", trControl = train_control)
+
+# Print the model
+print(model)
+
+# Summarize the results
+summary(model)
+```
+
+## Model training
+```{r Model training}
+# Load necessary packages
+library(caret)
+
+# Define the model using linear regression
+model_lm <- train(targeted_productivity ~ ., data = employee_data, method = "lm")
+
+# Print the model
+print(model_lm)
+
+# Summarize the results
+summary(model_lm)
+
+# Define the model using random forest
+model_rf <- train(targeted_productivity ~ ., data = employee_data, method = "rf")
+
+# Print the model
+print(model_rf)
+
+# Summarize the results
+print(model_rf$finalModel)
+
+# Define the model using multilayer perceptron
+model_mlp <- train(targeted_productivity ~ ., data = employee_data, method = "mlp")
+
+# Print the model
+print(model_mlp)
+```
+
+## Performance comparison
+```{r model performance}
+# Define models
+models <- list(
+  lm = train(targeted_productivity ~ ., data = employee_data, method = "lm"),
+  rf = train(targeted_productivity ~ ., data = employee_data, method = "rf"),
+  mlp = train(targeted_productivity ~ ., data = employee_data, method = "mlp")
+)
+
+# Compare model performance using 10-fold cross-validation
+comparison <- resamples(models)
+
+# Summarize the comparison results
+summary(comparison)
+
+# Plot the comparison results
+bwplot(comparison)
+```
+
